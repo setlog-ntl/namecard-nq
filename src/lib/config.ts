@@ -1,15 +1,10 @@
 export interface SocialItem { platform: string; url: string; }
 
-export type DesignPreset = 'pro' | 'corporate' | 'creative' | 'minimal-dark';
+const _basePath = process.env.NEXT_PUBLIC_REPO_NAME ? `/${process.env.NEXT_PUBLIC_REPO_NAME}` : '';
 
 function parseJSON<T>(raw: string | undefined, fallback: T): T {
   if (!raw) return fallback;
   try { return JSON.parse(raw) as T; } catch { return fallback; }
-}
-
-function parsePreset(raw: string | undefined): DesignPreset {
-  const valid: DesignPreset[] = ['pro', 'corporate', 'creative', 'minimal-dark'];
-  return valid.includes(raw as DesignPreset) ? (raw as DesignPreset) : 'pro';
 }
 
 export const siteConfig = {
@@ -26,9 +21,7 @@ export const siteConfig = {
   website: process.env.NEXT_PUBLIC_WEBSITE || null,
   socials: parseJSON<SocialItem[]>(process.env.NEXT_PUBLIC_SOCIALS, []),
   avatarUrl: process.env.NEXT_PUBLIC_AVATAR_URL || null,
-  accentColor: process.env.NEXT_PUBLIC_ACCENT_COLOR || '#3b82f6',
-  designPreset: parsePreset(process.env.NEXT_PUBLIC_DESIGN_PRESET),
-  fontFamily: process.env.NEXT_PUBLIC_FONT_FAMILY || 'Pretendard Variable',
+  accentColor: process.env.NEXT_PUBLIC_ACCENT_COLOR || '#1e3a5f',
   gaId: process.env.NEXT_PUBLIC_GA_ID || null,
 };
 
